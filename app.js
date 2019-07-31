@@ -24,25 +24,25 @@ window.addEventListener("load", () => {
         .then(data => {
           const { temperature, summary, icon } = data.currently;
 
+          // Formula for Farenheit to Celsius
+          let celsius = (temperature - 32) * (5 / 9);
+
           // Set DOM elements from the API
-          temperatureDegree.textContent = temperature;
+          temperatureDegree.textContent = Math.floor(celsius);
           temperatureDescription.textContent = summary;
           locationTimezone.textContent = data.timezone;
 
           // Set Icon
           setIcons(icon, document.querySelector(".icon"));
 
-          // Formula for Farenheit to Celsius
-          let celsius = (temperature - 32) * (5 / 9);
-
           // Change temperature to Celsius/Farenheit
           temperatureSection.addEventListener("click", () => {
-            if (temperatureSpan.textContent === "F") {
-              temperatureSpan.textContent = "C";
-              temperatureDegree.textContent = Math.floor(celsius);
-            } else {
+            if (temperatureSpan.textContent === "C") {
               temperatureSpan.textContent = "F";
               temperatureDegree.textContent = temperature;
+            } else {
+              temperatureSpan.textContent = "C";
+              temperatureDegree.textContent = Math.floor(celsius);
             }
           });
         });
