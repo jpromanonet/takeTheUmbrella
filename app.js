@@ -4,10 +4,20 @@ window.addEventListener("load", () => {
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
-      long = position.coords.longitude;
-      lat = position.coords.latitude;
+        long = position.coords.longitude;
+        lat = position.coords.latitude;
 
-      const api = `https://api.darksky.net/forecast/29ba721fbc0945c16918046de04f4228/${lat},${long}`;
+        const proxy = 'https://cors-anywhere.herokuapp.com/';
+        const api = `https://api.darksky.net/forecast/29ba721fbc0945c16918046de04f4228/${lat},${long}`;
+
+        fetch(api)
+            .then(response =>{
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+
     });
   } else {
     h1.textContent =
